@@ -1,27 +1,51 @@
 import React, {useState} from "react";
 
-export default function InputNote(props){
-    
+function InputNote(props){
     const [note, setNote] = useState({
         title:"",
         content:""
-    })
+    });
 
     function handleChange(e){
-        const name = e.target.name;
-        const content = e.target.value;
+        const {name, value} = e.target;
         
         setNote((prevNote)=>{
-            return({
+            return {
                 ...prevNote,
-                [name]: content
-            })
-        })
+                [name]: value
+            };
+        });
     }
 
-    return(<div>
-        <input name="title" type="text" onChange={handleChange} placeholder="Title" value={note.title}></input>
-        <input name="content" type="text" onChange={handleChange} placeholder="Take a note..." value={note.content}></input>
-        <span><button onClick={props.add(note)}>Add</button></span>
-    </div>);
+    function onAdd(e){
+        props.add(note);
+        setNote({
+            title: "",
+            content: ""
+        });
+        e.preventDefault();
+    }
+
+    return(
+        <div>
+            <form>
+                <input 
+                name="title" 
+                onChange={handleChange} 
+                placeholder="Title" 
+                value={note.title}     
+                />
+                <textarea
+                name="content" 
+                rows="3" 
+                onChange={handleChange} 
+                placeholder="Take a note..." 
+                value={note.content}
+                />
+                <button onClick={onAdd}>Add</button>
+            </form>
+        </div>
+    );
 }
+
+export default InputNote;   

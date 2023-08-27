@@ -4,40 +4,41 @@ import Footer from "./Footer";
 import Note from "./Note";
 import InputNote from "./InputNote";
 
-export default function App() {
-  
+function App() {
   const [list, setList] = useState([]);
   
-  function handleAdd(note){
-    setList((prevList)=>{
-      return([
-        ...prevList,
-        note
-      ])
+  function handleAdd(noteItem){
+    setList(prevList => {
+      return [...prevList, noteItem];
+    });
+  }
+
+  function deleteNote(id){
+    setList(prevList => {
+      prevList.filter((noteItem, index) => {
+        return index !== id;
+      })
     })
   }
 
   return (
     <div>
       <Header />
-      
-      <InputNote
-         
-        add={handleAdd}
-      /> 
-      
-      <div>
-      {list.map((note, index)=>{
-        return(<Note
-          key={index}
-          heading={note.title}
-          content={note.content}
-        />)
+      <InputNote add={handleAdd} /> 
+      {list.map((noteItem, index)=>{
+        return(
+          <Note
+            key={index}
+            id={index}
+            title={noteItem.title}
+            content={noteItem.content}
+            onDelete={deleteNote}
+          />
+        );
       })}
-      </div>
-      
       <Footer />
-      
     </div>
   );
 }
+
+export default App;
