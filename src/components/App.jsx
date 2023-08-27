@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useState} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
-import Notes from "../Notes";
+import InputNote from "./inputNote";
 
 export default function App() {
+  
+  const [list, setList] = useState([]);
+  
+  function handleAdd(e){
+    setList((prevList)=>{
+      return([
+        ...prevList,
+
+      ])
+    })
+  }
+
   return (
     <div>
       <Header />
@@ -15,6 +27,13 @@ export default function App() {
           content={note.content}
         />)
       })}
+      <div>
+      <InputNote
+         
+        add={handleAdd}
+      />
+      
+      </div>
       <Footer />
     </div>
   );
