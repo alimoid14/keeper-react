@@ -8,11 +8,11 @@ export default function App() {
   
   const [list, setList] = useState([]);
   
-  function handleAdd(e){
+  function handleAdd(inputNote){
     setList((prevList)=>{
       return([
         ...prevList,
-
+        inputNote
       ])
     })
   }
@@ -20,10 +20,10 @@ export default function App() {
   return (
     <div>
       <Header />
-      {Notes.map((note)=>{
+      {list.map((note, index)=>{
         return(<Note
-          key={note.id}
-          heading={note.heading}
+          key={index}
+          heading={note.title}
           content={note.content}
         />)
       })}

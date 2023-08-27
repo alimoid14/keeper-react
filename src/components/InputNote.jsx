@@ -21,6 +21,6 @@ export default function InputNote(props){
     return(<div>
         <input name="title" type="text" onChange={handleChange} placeholder="Title" value={note.title}></input>
         <input name="content" type="text" onChange={handleChange} placeholder="Take a note..." value={note.content}></input>
-        <span><button onClick={props.add}>Add</button></span>
+        <span><button onClick={props.add(note)}>Add</button></span>
     </div>);
 }
