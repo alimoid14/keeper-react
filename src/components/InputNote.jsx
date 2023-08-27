@@ -1,51 +1,51 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-function InputNote(props){
-    const [note, setNote] = useState({
-        title:"",
-        content:""
+function InputNote(props) {
+  const [note, setNote] = useState({
+    title: "",
+    content: ""
+  });
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setNote(prevNote => {
+      return {
+        ...prevNote,
+        [name]: value
+      };
     });
+  }
 
-    function handleChange(e){
-        const {name, value} = e.target;
-        
-        setNote((prevNote)=>{
-            return {
-                ...prevNote,
-                [name]: value
-            };
-        });
-    }
+  function submitNote(event) {
+    props.onAdd(note);
+    setNote({
+      title: "",
+      content: ""
+    });
+    event.preventDefault();
+  }
 
-    function onAdd(e){
-        props.add(note);
-        setNote({
-            title: "",
-            content: ""
-        });
-        e.preventDefault();
-    }
-
-    return(
-        <div>
-            <form>
-                <input 
-                name="title" 
-                onChange={handleChange} 
-                placeholder="Title" 
-                value={note.title}     
-                />
-                <textarea
-                name="content" 
-                rows="3" 
-                onChange={handleChange} 
-                placeholder="Take a note..." 
-                value={note.content}
-                />
-                <button onClick={onAdd}>Add</button>
-            </form>
-        </div>
-    );
+  return (
+    <div>
+      <form>
+        <input
+          name="title"
+          onChange={handleChange}
+          value={note.title}
+          placeholder="Title"
+        />
+        <textarea
+          name="content"
+          onChange={handleChange}
+          value={note.content}
+          placeholder="Take a note..."
+          rows="3"
+        />
+        <button onClick={submitNote}>Add</button>
+      </form>
+    </div>
+  );
 }
 
-export default InputNote;   
+export default InputNote;
