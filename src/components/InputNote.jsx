@@ -8,7 +8,8 @@ export default function InputNote(props){
     })
 
     function handleChange(e){
-        const {name, content} = e.target;
+        const name = e.target.name;
+        const content = e.target.value;
         
         setNote((prevNote)=>{
             return({
